@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import cartImg from "../../assets/shopping-bag.png"
+import userImg from "../../assets/user2.png"
 
 const Navbar = () => {
     // navList Data
@@ -50,7 +51,7 @@ const Navbar = () => {
     // )
     
       return (
-        <nav className="bg-white-500 sticky top-0">
+        <nav className="bg-white sticky top-0 mx-6">
             {/* main  */}
             <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
                 {/* left  */}
@@ -62,6 +63,10 @@ const Navbar = () => {
                     <Link to={'/'} className="ml-6 text-black font-medium">Home</Link>
                     {/* Shop */}
                     <Link to={'/allproduct'} className="ml-6 text-black font-medium">Shop</Link>
+                    {/* Shop */}
+                    <Link to={'/'} className="ml-6 text-black font-medium">About Us</Link>
+                    {/* Shop */}
+                    <Link to={'/'} className="ml-6 text-black font-medium">Contact Us</Link>
                 </div>
     
                 {/* right  */}
@@ -75,7 +80,9 @@ const Navbar = () => {
                         <img className="w-6 h-auto" src={cartImg} alt="cart" />
                     </Link>
                     {/* User */}
-                    <Link to={'/'} className="ml-3 text-black font-medium">User</Link>
+                    <Link to={'/'} className="ml-3 text-black font-medium">
+                        <img className="w-6 h-auto" src={userImg} alt="user" />
+                    </Link>
                 </div>
             </div>
         </nav>
