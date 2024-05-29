@@ -1,6 +1,6 @@
 const HeroSection = () => {
     return (
-      <div className="mx-6 bg-gradient-to-r from-gray-400 to-gray-300 h-screen flex flex-col md:flex-row justify-center items-center rounded-3xl">
+      <div className="mx-6 bg-gradient-to-r from-gray-400 to-gray-300 max-h-screen flex flex-col md:flex-row justify-center items-center rounded-3xl">
         {/* Text content */}
         <div className="md:w-1/2 md:text-left mx-4">
           <h3 className=" mx-48 text-xl font-bold text-black md:text-2xl">Beats Solo</h3>
@@ -18,7 +18,7 @@ const HeroSection = () => {
         {/* Image */}
         <div className="flex md:w-1/2 mx-10">
   <img
-    className="w-auto h-40 md:h-3/4"
+    className="w-auto h-40 md:h-3/4 "
     src="https://images-cdn.ubuy.co.in/64edb77970d39e7b140d1095-beats-studio-pro-wireless-headphones.jpg"
     alt="Hero"
   />
