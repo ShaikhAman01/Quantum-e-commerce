@@ -29,10 +29,10 @@ const features = [
 const FeaturesComponent = () => {
 
   return (
-    <div className="pt-10 flex justify-around my-10">
+    <div className="px-16 pt-10 flex justify justify-between my-10">
       {features.map((feature, index) => (
         <div key={index} className="flex items-center text-center max-w-xs">
-          <div className=" bg-customRed p-2 rounded-full h-10 w-10 mb-2 mr-2">{feature.icon}</div>
+          <div className=" bg-primary p-1 rounded-full h-10 w-10 mb-2 mr-2">{feature.icon}</div>
           <div className="flex flex-col">
             <div className="font-bold text-lg mb-1">{feature.title}</div>
             <div className="text-gray-500">{feature.description}</div>

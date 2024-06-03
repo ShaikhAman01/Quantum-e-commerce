@@ -1,6 +1,9 @@
+import Button from "../Shared/Button";
+
 const HeroSection = () => {
     return (
-      <div className="mx-6 bg-gradient-to-r from-gray-400 to-gray-300 max-h-screen flex flex-col md:flex-row justify-center items-center rounded-3xl">
+      
+      <div className=" overflow-hidden min-h-[550]px mx-16 bg-gradient-to-br from-gray-400 to-gray-200 flex flex-col md:flex-row justify-center items-center rounded-3xl">
         {/* Text content */}
         <div className="md:w-1/2 md:text-left mx-4">
           <h3 className=" mx-48 text-xl font-bold text-black md:text-2xl">Beats Solo</h3>
@@ -10,15 +13,13 @@ const HeroSection = () => {
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap to electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
           </p> */}
           <div className="mx-48 flex justify-end md:justify-start mt-8">
-            <button className="hover:bg-red-600 bg-customRed  text-gray-200 font-bold py-2 px-4 rounded-3xl border border-transparent hover:border-white inline-flex items-center md:px-8 hover:shadow-lg hover:transform hover:-translate-y-1">
-              Shop by category
-            </button>
+          <Button text="Shop by Category" bgColor={"bg-primary"} textColor={"text-white"} />
           </div>
         </div>
         {/* Image */}
         <div className="flex md:w-1/2 mx-10">
   <img
-    className="w-auto h-40 md:h-3/4 "
+    className="w-auto h-40 md:h-3/4"
     src="https://images-cdn.ubuy.co.in/64edb77970d39e7b140d1095-beats-studio-pro-wireless-headphones.jpg"
     alt="Hero"
   />

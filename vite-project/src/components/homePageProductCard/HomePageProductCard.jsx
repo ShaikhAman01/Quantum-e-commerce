@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../Shared/Button';
 
     const productData = [
         {
@@ -62,7 +63,7 @@ import React from 'react'
     export default function HomePageProductCard() {
         return (
             <div>
-              <div className="container mx-auto pb-10">
+              <div className="px-16 mx-auto pb-10">
                 {/* Header section */}
                 <div className="mb-10 max-w-[600px] mx-auto space-y-2">
                   <h1 className="text-3xl font-bold lg:text-4xl text-center">Best Seller Products</h1>
@@ -70,29 +71,29 @@ import React from 'react'
           
                 {/* Body section */}
                 <div className="mb-10">
-                  {/* Card section */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 place-items-center">
-                    {productData.map((item, index) => (
-                      <div className="group bg-gradient-to-r from-gray-400 to-gray-300 rounded-3xl px-16 py-2" key={index}>
-                        <div className="relative">
-                          <img
-                            className="h-48 w-52 object-cover rounded-md"
-                            src={item.image}
-                            alt={item.title}
-                          />
-                          {/* Hover button */}
-                          <button className="hidden group-hover:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-auto w-auto text-center bg-customRed text-white px-2 rounded-3xl justify-center items-center duration-200">
-                            Add to cart
-                          </button>
-                        </div>
-          
-                        <div className="leading-7 text-center mt-2">
-                          <h2 className="font-semibold text-left">{item.title}</h2>
-                          <p className="font-bold text-left">₹ {item.price}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 place-items-center">
+  {productData.map((item, index) => (
+    <div className="group bg-gradient-to-br from-gray-400 to-gray-200 rounded-3xl px-8 py-6" key={index}>
+      <div className="relative">
+        <img
+          className="h-[180px] w-[260px] object-cover rounded-md"
+          src={item.image}
+          alt={item.title}
+        />
+        {/* Hover button */}
+        <div className="hidden group-hover:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-full w-full text-center group-hover:backdrop-blur-sm justify-center items-center duration-200">
+          <Button text="Add to Cart" bgColor={"bg-primary"} textColor={"text-white"} />
+        </div>
+      </div>
+
+      <div className="leading-7 text-center mt-2">
+        <h2 className="font-semibold text-left">{item.title}</h2>
+        <p className="font-bold text-left">₹ {item.price}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
                 </div>
               </div>
             </div>

@@ -3,8 +3,8 @@
 export default function Banner({data}) {
   
   return (
-    <div className="min-h-[550px] flex justify-center items-center py-12" >
-      <div style={{backgroundColor: data.bgColor}} className="container rounded-3xl">
+    <div className="px-16 min-h-[550px] flex justify-center items-center py-12" >
+      <div style={{backgroundColor: data.bgColor}} className="rounded-3xl w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-white ">
         {/* {first-col} */}
             <div className='p-6 sm:p-8'>
@@ -21,7 +21,7 @@ export default function Banner({data}) {
             <p className='font-bold font-xl' >{data.title2}</p>
             <p className='text-3xl sm:txt-5xl font-bold'>{data.title3}</p>
             <p className='text-sm tracking-wide leading-5'>{data.title4}</p>
-            <div><button className='bg-white text-customRed py-2 px-4 rounded-full'>Shop Now</button></div>
+            <div><button className='bg-white text-primary py-2 px-4 rounded-full'>Shop Now</button></div>
         </div>
 
         </div>

@@ -51,13 +51,13 @@ const Navbar = () => {
     // )
     
       return (
-        <nav className="bg-white sticky top-0 mx-6">
+        <nav className="bg-white sticky top-0 mx-16">
             {/* main  */}
             <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
                 {/* left  */}
                 <div className="left py-3 lg:py-0 flex items-center">
                     <Link to={'/'}>
-                        <h2 className="font-bold text-customRed text-2xl">Quantum</h2>
+                        <h2 className="text-primary font-semibold tracking-widest text-xl uppercase sm:text-2xl">Quantum</h2>
                     </Link>
                     {/* Home */}
                     <Link to={'/'} className="ml-6 text-black font-medium">Home</Link>
