@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from "../../components/layout/Layout";
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const ContactUs = () => {
     return (
@@ -28,6 +29,15 @@ const ContactUs = () => {
                             <p className="text-gray-700 leading-7">
                                 Address: 123 Tech Avenue, Innovation City, CA 90001
                             </p>
+                        </section>
+
+                        <section className="mt-8">
+                            <h2 className="text-2xl font-semibold text-gray-900 mb-3">Social Media</h2>
+                            <div className="flex space-x-4">
+                                <a href="#" className="text-primary hover:text-primary-dark"><FaFacebook size={24} /></a>
+                                <a href="#" className="text-primary hover:text-primary-dark"><FaTwitter size={24} /></a>
+                                <a href="#" className="text-primary hover:text-primary-dark"><FaInstagram size={24} /></a>
+                            </div>
                         </section>
 
                         <section className="mt-8">

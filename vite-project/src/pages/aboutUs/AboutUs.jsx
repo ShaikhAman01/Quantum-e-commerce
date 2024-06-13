@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from "../../components/layout/Layout";
 
 const AboutUs = () => {
@@ -13,10 +14,10 @@ const AboutUs = () => {
                         <section>
                             <h2 className="text-2xl font-semibold text-gray-900 mb-3">Who We Are</h2>
                             <p className="text-gray-700 leading-7">
-                                Welcome to [Your Company Name], your number one source for all things tech. We're dedicated to providing you the very best of electronics, with an emphasis on quality, customer service, and uniqueness.
+                                Welcome to <b>Quantum</b>, your number one source for all things tech. We're dedicated to providing you the very best of electronics, with an emphasis on quality, customer service, and uniqueness.
                             </p>
                             <p className="text-gray-700 leading-7 mt-2">
-                                Founded in [Year] by [Founder's Name], [Your Company Name] has come a long way from its beginnings in [starting location]. When [Founder's Name] first started out, [his/her/their] passion for [brand message - e.g. "eco-friendly cleaning products"] drove them to start their own business.
+                                Founded in 2024, Quantum has come a long way from its beginnings in Hyderabad, India. Our passion for "Pioneering Tech for a Sustainable Future" drove us to start this business.
                             </p>
                         </section>
 
@@ -47,7 +48,7 @@ const AboutUs = () => {
                         <section className="mt-8">
                             <h2 className="text-2xl font-semibold text-gray-900 mb-3">Contact Us</h2>
                             <p className="text-gray-700 leading-7">
-                                If you have any questions or comments, please don't hesitate to contact us at [email@example.com] or call us at [phone number]. We're always here to help!
+                                If you have any questions or comments, please don't hesitate to <Link to={'/contact'} className="text-primary">Contact Us</Link> at email@example.com or call us at +91 1234567890. We're always here to help!
                             </p>
                         </section>
                     </div>

@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
 import NoPage from "./pages/noPage/NoPage";
-import ProductInfo from "./pages/productIngo/ProductInfo";
+import ProductInfo from "./pages/productInfo/ProductInfo";
 import ScrollTop from "./components/scrollTop/ScrollTop";
 import CartPage from "./pages/cart/CartPage";
 import AllProducts from "./pages/allProducts/AllProducts";

@@ -66,7 +66,7 @@ const Navbar = () => {
                     {/* Shop */}
                     <Link to={'/aboutUs'} className="ml-6 text-black font-medium">About Us</Link>
                     {/* Shop */}
-                    <Link to={'/'} className="ml-6 text-black font-medium">Contact Us</Link>
+                    <Link to={'/contact'} className="ml-6 text-black font-medium">Contact Us</Link>
                 </div>
     
                 {/* right  */}
