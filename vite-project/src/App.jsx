@@ -12,6 +12,8 @@ import AllProducts from "./pages/allProducts/AllProducts";
 import Signup from "./pages/registration/Signup";
 import { LogIn } from "lucide-react";
 import Login from "./pages/registration/Login";
+import AboutUs from "./pages/aboutUs/AboutUs";
+import ContactUs from "./pages/contactUs/contactUs";
 
 function App() {
   return (
@@ -26,6 +28,10 @@ function App() {
         <Route path="/allproducts" element={<AllProducts/>}/>
         <Route path="/signup" element={<Signup/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/aboutus" element={<AboutUs />}/>
+        <Route path="/contact" element={<ContactUs />}/>
+
+
 
 
       </Routes>

@@ -1,47 +1,59 @@
+import React, { useState } from 'react';
 import Button from "../../components/Shared/Button";
 import Layout from "../../components/layout/Layout";
 import { Trash } from 'lucide-react'
 
-const products = [
+import boatHeadphones from "../../assets/homePage_headphone_1.png";
+import nothingPhone from "../../assets/homePage_nothingPhone.png";
+import appleWatch from "../../assets/homePage_watch_2.png";
+
+const initialProducts = [
     {
         id: 1,
-        name: 'Nike Air Force 1 07 LV8',
+        name: 'boAt Rockerz 550 Bluetooth Wireless Over Ear Headphones',
         href: '#',
-        price: '₹47,199',
-        originalPrice: '₹48,900',
+        price: 8549,
+        originalPrice: 8999,
         discount: '5% Off',
-        color: 'Orange',
-        size: '8 UK',
-        imageSrc:
-            'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/54a510de-a406-41b2-8d62-7f8c587c9a7e/air-force-1-07-lv8-shoes-9KwrSk.png',
+        color: 'white',
+        imageSrc: boatHeadphones,
     },
     {
         id: 2,
-        name: 'Nike Blazer Low 77 SE',
+        name: 'Nothing Phone(2a)',
         href: '#',
-        price: '₹1,549',
-        originalPrice: '₹2,499',
-        discount: '38% off',
-        color: 'White',
-        leadTime: '3-4 weeks',
-        size: '8 UK',
-        imageSrc:
-            'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e48d6035-bd8a-4747-9fa1-04ea596bb074/blazer-low-77-se-shoes-0w2HHV.png',
+        price: 21000,
+        originalPrice: 28000,
+        discount: '25% off',
+        color: 'black',
+        imageSrc: nothingPhone,
     },
     {
         id: 3,
-        name: 'Nike Air Max 90',
+        name: 'Apple Watch Series 9',
         href: '#',
-        price: '₹999 ',
-        originalPrice: '₹2219',
-        discount: '78% off',
+        price: 38165,
+        originalPrice: 44900,
+        discount: '15% off',
         color: 'Black',
-        imageSrc:
-            'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/fd17b420-b388-4c8a-aaaa-e0a98ddf175f/dunk-high-retro-shoe-DdRmMZ.png',
+        imageSrc: appleWatch,
     },
-]
+];
 
 const CartPage = () => {
+    const [products, setProducts] = useState(initialProducts.map(product => ({ ...product, quantity: 1 })));
+
+    const handleQuantityChange = (id, amount) => {
+        setProducts(products.map(product =>
+            product.id === id ? { ...product, quantity: Math.max(1, product.quantity + amount) } : product
+        ));
+    };
+
+    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    const totalOriginalPrice = products.reduce((acc, product) => acc + product.originalPrice * product.quantity, 0);
+    const totalDiscount = totalOriginalPrice - totalPrice;
+    const finalAmount = totalPrice;
+
     return (
         <Layout>
             <div className="container mx-auto max-w-7xl px-4 py-8">
@@ -76,10 +88,10 @@ const CartPage = () => {
                                                     </div>
                                                     <div className="mt-1 flex items-end">
                                                         <p className="text-xs font-medium text-gray-500 line-through">
-                                                            {product.originalPrice}
+                                                            ₹{product.originalPrice.toLocaleString()}
                                                         </p>
                                                         <p className="text-sm font-medium text-gray-900 ml-2">
-                                                            {product.price}
+                                                            ₹{product.price.toLocaleString()}
                                                         </p>
                                                         <p className="text-sm font-medium text-green-500 ml-2">
                                                             {product.discount}
@@ -89,17 +101,18 @@ const CartPage = () => {
                                             </div>
                                             <div className="mt-4 flex items-center">
                                                 <div className="flex items-center border border-gray-200 rounded-md">
-                                                    <button type="button" className="h-7 w-7 text-gray-700">-</button>
+                                                    <button type="button" className="h-7 w-7 text-gray-700" onClick={() => handleQuantityChange(product.id, -1)}>-</button>
                                                     <input
                                                         type="text"
                                                         className="mx-1 h-7 w-9 text-center border-0"
-                                                        defaultValue={1}
+                                                        value={product.quantity}
+                                                        readOnly
                                                     />
-                                                    <button type="button" className="h-7 w-7 text-gray-700">+</button>
+                                                    <button type="button" className="h-7 w-7 text-gray-700" onClick={() => handleQuantityChange(product.id, 1)}>+</button>
                                                 </div>
-                                                <button type="button" className="flex items-center ml-6 text-red-500">
+                                                <button type="button" className="flex items-center ml-6 text-red-500" onClick={() => setProducts(products.filter(p => p.id !== product.id))}>
                                                     <Trash size={16} />
-                                                    <span className="ml-1 text-xs font-medium"></span>
+                                                    <span className="ml-1 text-xs font-medium">Remove</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -120,12 +133,12 @@ const CartPage = () => {
                             <div className="py-4">
                                 <dl className="space-y-4">
                                     <div className="flex items-center justify-between">
-                                        <dt className="text-sm text-gray-800">Price (3 item)</dt>
-                                        <dd className="text-sm font-medium text-gray-900">₹ 52,398</dd>
+                                        <dt className="text-sm text-gray-800">Price ({products.reduce((acc, product) => acc + product.quantity, 0)} item{products.length > 1 ? 's' : ''})</dt>
+                                        <dd className="text-sm font-medium text-gray-900">₹ {totalPrice.toLocaleString()}</dd>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <dt className="text-sm text-gray-800">Discount</dt>
-                                        <dd className="text-sm font-medium text-green-700">- ₹ 3,431</dd>
+                                        <dd className="text-sm font-medium text-green-700">- ₹ {totalDiscount.toLocaleString()}</dd>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <dt className="text-sm text-gray-800">Delivery Charges</dt>
@@ -133,7 +146,7 @@ const CartPage = () => {
                                     </div>
                                     <div className="flex items-center justify-between border-t border-dashed pt-4">
                                         <dt className="text-base font-medium text-gray-900">Total Amount</dt>
-                                        <dd className="text-base font-medium text-gray-900">₹ 48,967</dd>
+                                        <dd className="text-base font-medium text-gray-900">₹ {finalAmount.toLocaleString()}</dd>
                                     </div>
                                 </dl>
                                 <div className="mt-6">

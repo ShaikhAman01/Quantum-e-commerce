@@ -1,10 +1,12 @@
 import Button from "../Shared/Button";
+import  heroHeadphones  from "../../assets/hero_headphones.png";
 
 const HeroSection = () => {
     return (
-      
-      <div className=" overflow-hidden min-h-[550]px mx-16 bg-gradient-to-br from-gray-400 to-gray-200 flex flex-col md:flex-row justify-center items-center rounded-3xl">
+
+      <div className="overflow-hidden min-h-[550]px mx-16 bg-gradient-to-br from-gray-400 to-gray-200 flex flex-col md:flex-row justify-center items-center rounded-3xl">
         {/* Text content */}
+        
         <div className="md:w-1/2 md:text-left mx-4">
           <h3 className=" mx-48 text-xl font-bold text-black md:text-2xl">Beats Solo</h3>
           <h1 className=" mx-48 mt-2 text-3xl decoration-black font-extrabold md:text-7xl decoration-sky-500 ">Wireless</h1>
@@ -20,7 +22,7 @@ const HeroSection = () => {
         <div className="flex md:w-1/2 mx-10">
   <img
     className="w-auto h-40 md:h-3/4"
-    src="https://images-cdn.ubuy.co.in/64edb77970d39e7b140d1095-beats-studio-pro-wireless-headphones.jpg"
+    src= {heroHeadphones}
     alt="Hero"
   />
 </div>

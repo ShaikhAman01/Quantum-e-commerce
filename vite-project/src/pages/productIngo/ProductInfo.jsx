@@ -2,6 +2,8 @@ import React from 'react';
 import Layout from "../../components/layout/Layout";
 import Button from '../../components/Shared/Button';
 
+import headPhone from "../../assets/homePage_headphone_1.png";
+
 const ProductInfo = () => {
   return (
     <Layout>
@@ -10,7 +12,7 @@ const ProductInfo = () => {
         <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
           <img
             className="rounded-lg shadow-lg object-contain overflow-hidden h-full w-full lg:h-[45em]"
-            src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1697623652/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/272322_v3hpuf.png"
+            src={headPhone}
             alt="Product"
           />
         </div>
@@ -20,7 +22,7 @@ const ProductInfo = () => {
           <div className="mb-6">
             {/* Product Title */}
             <h2 className="text-2xl font-bold leading-loose tracking-wide text-gray-800 dark:text-gray-200">
-            Sony WH-CH520, Wireless On-Ear Bluetooth Headphones with Mic
+            boAt Rockerz 550 Bluetooth Wireless Over Ear Headphones with Mic
             </h2>
           </div>
 
