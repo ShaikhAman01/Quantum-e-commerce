@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../components/layout/Layout";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ const Signup = () => {
   };
 
   return (
+    <Layout>
     <div className="flex items-center justify-center min-h-screen bg-gray-300">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-primary mb-8">Sign Up</h2>
@@ -80,6 +82,7 @@ const Signup = () => {
         </p>
       </div>
     </div>
+    </Layout>
   );
 };
 

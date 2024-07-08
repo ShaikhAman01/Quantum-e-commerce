@@ -176,6 +176,7 @@ const AllProduct = () => {
     const navigate = useNavigate();
 
     return (
+      <Layout>
       <div>
         <div className="px-16 mx-auto pb-10">
           {/* Header section */}
@@ -190,8 +191,8 @@ const AllProduct = () => {
                 <div className="group bg-gradient-to-br from-gray-400 to-gray-200 rounded-3xl p-6 relative w-full max-w-xs" key={item.id}>
                   <div className="relative w-full h-56 overflow-hidden">
                     <img
-                      onClick={() => navigate(`/productinfo/${item.id}`)}
-                      className="object-contain h-full w-full cursor-pointer"
+                    onClick={() => navigate(`/productinfo`)}
+                    className="object-contain h-full w-full cursor-pointer"
                       src={item.image}
                       alt={item.title}
                     />
@@ -209,6 +210,7 @@ const AllProduct = () => {
           </div>
         </div>
       </div>
+      </Layout>
     );
 }
 

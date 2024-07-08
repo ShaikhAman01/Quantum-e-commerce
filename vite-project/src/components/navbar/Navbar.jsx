@@ -62,7 +62,7 @@ const Navbar = () => {
                     {/* Home */}
                     <Link to={'/'} className="ml-6 text-black font-medium">Home</Link>
                     {/* Shop */}
-                    <Link to={'/allproduct'} className="ml-6 text-black font-medium">Shop</Link>
+                    <Link to={'/allproducts'} className="ml-6 text-black font-medium">Shop</Link>
                     {/* Shop */}
                     <Link to={'/aboutUs'} className="ml-6 text-black font-medium">About Us</Link>
                     {/* Shop */}

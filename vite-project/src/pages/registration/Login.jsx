@@ -1,3 +1,4 @@
+import Layout from "../../components/layout/Layout";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +22,7 @@ const Login = () => {
   };
 
   return (
+    <Layout>
     <div className="flex items-center justify-center min-h-screen bg-gray-300">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-primary mb-8">Log In</h2>
@@ -65,6 +67,7 @@ const Login = () => {
         </p>
       </div>
     </div>
+    </Layout>
   );
 };
 

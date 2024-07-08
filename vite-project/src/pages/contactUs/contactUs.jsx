@@ -1,5 +1,7 @@
 import React from 'react';
 import Layout from "../../components/layout/Layout";
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+
 
 const ContactUs = () => {
     return (
@@ -23,10 +25,10 @@ const ContactUs = () => {
                                 Email: <a href="mailto:email@example.com" className="text-primary">email@example.com</a>
                             </p>
                             <p className="text-gray-700 leading-7">
-                                Phone: <a href="tel:+1234567890" className="text-primary">+1 (234) 567-890</a>
+                                Phone: <a href="tel:+1234567890" className="text-primary">+91 1234567890</a>
                             </p>
                             <p className="text-gray-700 leading-7">
-                                Address: 123 Tech Avenue, Innovation City, CA 90001
+                                Address: Hi-tech City, Hyderabad, 500081
                             </p>
                         </section>
 
