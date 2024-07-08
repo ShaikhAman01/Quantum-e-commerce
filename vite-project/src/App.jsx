@@ -14,7 +14,13 @@ import { LogIn } from "lucide-react";
 import Login from "./pages/registration/Login";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import ContactUs from "./pages/contactUs/contactUs";
+import UserDashBoard from "./pages/user/UserDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
+
+
+
+ 
 function App() {
   return (
     <div>
@@ -30,6 +36,9 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/aboutus" element={<AboutUs />}/>
         <Route path="/contact" element={<ContactUs />}/>
+        <Route path="user-dashboard" element ={<UserDashBoard />}/>
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
 
 
 

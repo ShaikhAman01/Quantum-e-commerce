@@ -80,7 +80,7 @@ const Navbar = () => {
                         <img className="w-6 h-auto" src={cartImg} alt="cart" />
                     </Link>
                     {/* User */}
-                    <Link to={'/'} className="ml-3 text-black font-medium">
+                    <Link to={'/user-dashboard'} className="ml-3 text-black font-medium">
                         <img className="w-6 h-auto" src={userImg} alt="user" />
                     </Link>
                 </div>
