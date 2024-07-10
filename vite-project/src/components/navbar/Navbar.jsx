@@ -1,93 +1,70 @@
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
-import cartImg from "../../assets/shopping-bag.png"
-import userImg from "../../assets/user2.png"
+import cartImg from "../../assets/shopping-bag.png";
+import userImg from "../../assets/user2.png";
 
 const Navbar = () => {
-    // navList Data
-    // const navList = (
-    //     <ul className="flex space-x-3 text-dark font-medium text-md px-5 ">
-        
-    //         {/* Home */}
-    //         <li>
-    //             <Link to={'/'}>Home</Link>
-    //         </li>
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual auth state
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 
-    //         {/* All Product */}
-    //         <li>
-    //             <Link to={'/allproduct'}>Shop</Link>
-    //         </li>
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
 
-    //          {/* Search Bar  */}
-    //          <SearchBar />
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-    //         {/* Signup */}
-    //         <li>
-    //             <Link to={'/signup'}>Signup</Link>
-    //         </li>
+    const toggleDropdown = () => setShowDropdown(!showDropdown);
 
-    //         {/* User */}
-    //         <li>
-    //             <Link to={'/'}>User</Link>
-    //         </li>
-
-    //         {/* Admin */}
-    //         {/* <li>
-    //             <Link to={'/'}>Admin</Link>
-    //         </li> */}
-
-    //         {/* logout */}
-    //         {/* <li>
-    //             logout
-    //         </li> */}
-
-    //         {/* Cart */}
-    //         <li>
-    //             <Link to={'/cart'}>
-    //             <img className="w-6 h-auto" src={cartImg} alt="cart" />
-    //             </Link>
-    //         </li>
-    //     </ul>
-    // )
-    
-      return (
+    return (
         <nav className="bg-white top-0 mx-16">
-            {/* main  */}
-            <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
-                {/* left  */}
+            <div className="lg:flex lg:justify-between items-center py-3 lg:px-3">
                 <div className="left py-3 lg:py-0 flex items-center">
                     <Link to={'/'}>
                         <h2 className="text-primary font-semibold tracking-widest text-xl uppercase sm:text-2xl">Quantum</h2>
                     </Link>
-                    {/* Home */}
                     <Link to={'/'} className="ml-6 text-black font-medium">Home</Link>
-                    {/* Shop */}
                     <Link to={'/allproducts'} className="ml-6 text-black font-medium">Shop</Link>
-                    {/* Shop */}
                     <Link to={'/aboutUs'} className="ml-6 text-black font-medium">About Us</Link>
-                    {/* Shop */}
                     <Link to={'/contact'} className="ml-6 text-black font-medium">Contact Us</Link>
                 </div>
-    
-                {/* right  */}
+
                 <div className="right flex items-center">
-                    {/* Search Bar */}
                     <SearchBar />
-                    {/* Signup */}
-                    <Link to={'/signup'} className="ml-6 text-black font-medium">Signup</Link>
-                    {/* Cart */}
                     <Link to={'/cart'} className="ml-6">
                         <img className="w-6 h-auto" src={cartImg} alt="cart" />
                     </Link>
-                    {/* User */}
-                    <Link to={'/user-dashboard'} className="ml-3 text-black font-medium">
-                        <img className="w-6 h-auto" src={userImg} alt="user" />
-                    </Link>
+                    <div className="relative ml-3" ref={dropdownRef}>
+                        <button onClick={toggleDropdown} className="flex items-center">
+                            <img className="w-6 h-auto" src={userImg} alt="user" />
+                        </button>
+                        {showDropdown && (
+                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                                {isLoggedIn ? (
+                                    <>
+                                        <Link to="/user-dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+                                        <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+                                        <button onClick={() => {/* Implement logout logic */}} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign Out</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign In</Link>
+                                        <Link to="/signup" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign Up</Link>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </nav>
     );
-    
 }
 
 export default Navbar;

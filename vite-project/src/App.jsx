@@ -16,6 +16,8 @@ import AboutUs from "./pages/aboutUs/AboutUs";
 import ContactUs from "./pages/contactUs/contactUs";
 import UserDashBoard from "./pages/user/UserDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AddProductPage from "./pages/admin/AddProductPage";
+import UpdateProductPage from "./pages/admin/UpdateProductPage";
 
 
 
@@ -38,6 +40,10 @@ function App() {
         <Route path="/contact" element={<ContactUs />}/>
         <Route path="user-dashboard" element ={<UserDashBoard />}/>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/addproduct" element={<AddProductPage />} />
+        <Route path="/updateproduct" element={<UpdateProductPage />} />
+
+
 
 
 

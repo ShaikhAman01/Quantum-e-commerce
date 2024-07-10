@@ -1,81 +1,95 @@
+import { useState } from 'react';
+import ProductDetail from '../../components/admin/ProductDetail';
+import OrderDetail from '../../components/admin/OrderDetail';
+import UserDetail from '../../components/admin/UserDetail';
+
 const AdminDashboard = () => {
+    const [activeTab, setActiveTab] = useState('products');
+
+    const tabData = [
+        { id: 'products', title: 'Total Products', count: 10, icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+        )},
+        { id: 'orders', title: 'Total Orders', count: 10, icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            </svg>
+        )},
+        { id: 'users', title: 'Total Users', count: 10, icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+        )},
+    ];
+
     return (
-      <div className="px-5 py-5">
-        {/* Top */}
-        <div className="mb-5">
-          <div className="bg-red-100 py-5 border border-red-200 rounded-lg shadow-md">
-            <h1 className="text-center text-2xl font-bold text-red-500">Admin Dashboard</h1>
-          </div>
+        <div className="bg-gray-100 min-h-screen">
+            {/* Top */}
+            <div className="bg-gradient-to-r from-[#F42C37] to-[#F45D37] p-8 shadow-md">
+                <h1 className="text-center text-3xl font-bold text-white">Admin Dashboard</h1>
+            </div>
+
+            <div className="container mx-auto px-4 py-8">
+                {/* Mid */}
+                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <div className="flex items-center space-x-6">
+                        <img 
+                            src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" 
+                            alt="Admin Avatar" 
+                            className="w-24 h-24 rounded-full border-4 border-[#F42C37]"
+                        />
+                        <div>
+                            <h2 className="text-2xl font-semibold text-gray-800">Admin</h2>
+                            <p className="text-gray-600">test@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {tabData.map((tab) => (
+                        <div 
+                            key={tab.id}
+                            className={`bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer ${activeTab === tab.id ? 'ring-2 ring-[#F42C37]' : ''}`}
+                            onClick={() => setActiveTab(tab.id)}
+                        >
+                            <div className="flex items-center justify-between mb-4">
+                                <div className={`text-[#F42C37] ${activeTab === tab.id ? 'text-opacity-100' : 'text-opacity-70'}`}>
+                                    {tab.icon}
+                                </div>
+                                <span className="text-4xl font-bold text-[#F42C37]">{tab.count}</span>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-700">{tab.title}</h3>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Content based on active tab */}
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                    {activeTab === 'products' && (
+                        <div>
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4">All Products</h3>
+                            <ProductDetail/>
+                        </div>
+                    )}
+                    {activeTab === 'orders' && (
+                        <div>
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4">All Orders</h3>
+                            <OrderDetail/>
+\                        </div>
+                    )}
+                    {activeTab === 'users' && (
+                        <div>
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4">All Users</h3>
+                            <UserDetail/>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
-  
-        {/* Mid */}
-        <div className="mb-5">
-          <div className="bg-red-100 py-5 rounded-xl border border-red-200 shadow-md">
-            <div className="flex justify-center">
-              <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" className="h-24 w-24 rounded-full border-2 border-red-200"/>
-            </div>
-            <div className="mt-4">
-              <h1 className="text-center text-lg font-bold text-red-500">Name: John DOe</h1>
-              <h1 className="text-center text-lg font-bold text-red-500">Email: test@gmail.com</h1>
-            </div>
-          </div>
-        </div>
-  
-        {/* Bottom */}
-        <div className="flex flex-wrap -m-4 text-center justify-center">
-          {/* Total Products */}
-          <div className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-            <div className="border bg-red-100 py-3 px-4 rounded-xl hover:bg-red-200 border-red-200">
-              <div className="text-red-500 w-12 h-12 mb-3 inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-shopping-cart">
-                  <circle cx="9" cy="21" r="1" />
-                  <circle cx="20" cy="21" r="1" />
-                  <path d="M9 21V9a3 3 0 0 1 3-3h5l2 7h-7" />
-                  <path d="M17 11a2 2 0 0 1-2 2h-1" />
-                </svg>
-              </div>
-              <h2 className="text-3xl font-medium text-red-500">10</h2>
-              <p className="text-red-500 font-bold">Total Products</p>
-            </div>
-          </div>
-  
-          {/* Total Orders */}
-          <div className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-            <div className="border bg-red-100 py-3 px-4 rounded-xl hover:bg-red-200 border-red-200">
-              <div className="text-red-500 w-12 h-12 mb-3 inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-list">
-                  <line x1="8" y1="6" x2="21" y2="6" />
-                  <line x1="8" y1="12" x2="21" y2="12" />
-                  <line x1="8" y1="18" x2="21" y2="18" />
-                  <line x1="3" y1="6" x2="3" y2="6" />
-                  <line x1="3" y1="12" x2="3" y2="12" />
-                  <line x1="3" y1="18" x2="3" y2="18" />
-                </svg>
-              </div>
-              <h2 className="text-3xl font-medium text-red-500">10</h2>
-              <p className="text-red-500 font-bold">Total Orders</p>
-            </div>
-          </div>
-  
-          {/* Total Users */}
-          <div className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-            <div className="border bg-red-100 py-3 px-4 rounded-xl hover:bg-red-200 border-red-200">
-              <div className="text-red-500 w-12 h-12 mb-3 inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-users">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-              <h2 className="text-3xl font-medium text-red-500">10</h2>
-              <p className="text-red-500 font-bold">Total Users</p>
-            </div>
-          </div>
-        </div>
-      </div>
     );
-  };
-  
-  export default AdminDashboard;
-  
+}
+
+export default AdminDashboard;
