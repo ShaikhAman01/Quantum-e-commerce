@@ -10,7 +10,6 @@ import ScrollTop from "./components/scrollTop/ScrollTop";
 import CartPage from "./pages/cart/CartPage";
 import AllProducts from "./pages/allProducts/AllProducts";
 import Signup from "./pages/registration/Signup";
-import { LogIn } from "lucide-react";
 import Login from "./pages/registration/Login";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import ContactUs from "./pages/contactUs/contactUs";
@@ -42,13 +41,6 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/addproduct" element={<AddProductPage />} />
         <Route path="/updateproduct" element={<UpdateProductPage />} />
-
-
-
-
-
-
-
       </Routes>
     </Router>
     </div>
