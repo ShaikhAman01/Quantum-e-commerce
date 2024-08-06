@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../firebase"; // Ensure this path is correct
@@ -43,7 +43,7 @@ const Signup = () => {
 
   return (
     <Layout>
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-red-200">
+      <div className="flex items-center justify-center min-h-screen">
         <div className="bg-white p-10 rounded-xl shadow-2xl w-full max-w-md">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Create an Account</h2>
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
