@@ -24,6 +24,8 @@ const AdminDashboard = () => {
         )},
     ];
 
+    const user = JSON.parse(localStorage.getItem('users'));
+
     return (
         <div className="bg-gray-100 min-h-screen">
             {/* Top */}
@@ -41,8 +43,8 @@ const AdminDashboard = () => {
                             className="w-24 h-24 rounded-full border-4 border-[#F42C37]"
                         />
                         <div>
-                            <h2 className="text-2xl font-semibold text-gray-800">Admin</h2>
-                            <p className="text-gray-600">test@gmail.com</p>
+                            <h2 className="text-2xl font-semibold text-gray-800">{user?.name}</h2>
+                            <p className="text-gray-600">{user?.email}</p>
                         </div>
                     </div>
                 </div>

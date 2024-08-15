@@ -14,8 +14,7 @@ const products = [
     quantity: 1,
   },
 ];
-const user = JSON.parse(localStorage.getItem("users"));
-
+const user = JSON.parse(localStorage.getItem('users'));
 
 const UserDashboard = () => {
   return (
@@ -31,8 +30,8 @@ const UserDashboard = () => {
             </div>
             {/* text */}
             <div className="text-center mt-4">
-              <h1 className="text-lg font-bold">Name: <span className="font-normal">{user.name}</span></h1>
-              <h1 className="text-lg font-bold">Email: <span className="font-normal">{user.email}</span></h1>
+            <h2 className="text-2xl font-semibold text-gray-800">{user?.name}</h2>
+            <p className="text-gray-600">{user?.email}</p>
             </div>
           </div>
         </div>
