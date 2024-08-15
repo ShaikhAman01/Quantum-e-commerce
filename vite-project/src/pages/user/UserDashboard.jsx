@@ -1,3 +1,4 @@
+import { User } from "lucide-react";
 import Layout from "../../components/layout/Layout";
 
 const products = [
@@ -13,6 +14,8 @@ const products = [
     quantity: 1,
   },
 ];
+const user = JSON.parse(localStorage.getItem("users"));
+
 
 const UserDashboard = () => {
   return (
@@ -28,8 +31,8 @@ const UserDashboard = () => {
             </div>
             {/* text */}
             <div className="text-center mt-4">
-              <h1 className="text-lg font-bold">Name: <span className="font-normal">John Doe</span></h1>
-              <h1 className="text-lg font-bold">Email: <span className="font-normal">test@gmail.com</span></h1>
+              <h1 className="text-lg font-bold">Name: <span className="font-normal">{user.name}</span></h1>
+              <h1 className="text-lg font-bold">Email: <span className="font-normal">{user.email}</span></h1>
             </div>
           </div>
         </div>
