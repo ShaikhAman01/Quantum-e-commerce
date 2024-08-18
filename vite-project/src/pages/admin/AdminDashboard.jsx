@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ProductDetail from '../../components/admin/ProductDetail';
 import OrderDetail from '../../components/admin/OrderDetail';
 import UserDetail from '../../components/admin/UserDetail';
+import myContext from '../../context/myContext';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('products');
 
+    
+    const user = JSON.parse(localStorage.getItem('users'));
+    const context = useContext(myContext)
+    const { getAllProduct } = context
+    
     const tabData = [
-        { id: 'products', title: 'Total Products', count: 10, icon: (
+        { id: 'products', title: 'Total Products', count: getAllProduct?.length || 0, icon: (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
@@ -23,9 +29,6 @@ const AdminDashboard = () => {
             </svg>
         )},
     ];
-
-    const user = JSON.parse(localStorage.getItem('users'));
-
     return (
         <div className="bg-gray-100 min-h-screen">
             {/* Top */}
@@ -72,7 +75,6 @@ const AdminDashboard = () => {
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     {activeTab === 'products' && (
                         <div>
-                            <h3 className="text-xl font-semibold text-gray-800 mb-4">All Products</h3>
                             <ProductDetail/>
                         </div>
                     )}

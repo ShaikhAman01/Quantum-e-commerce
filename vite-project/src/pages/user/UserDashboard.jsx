@@ -1,4 +1,3 @@
-import { User } from "lucide-react";
 import Layout from "../../components/layout/Layout";
 
 const products = [
@@ -10,13 +9,13 @@ const products = [
     href: '#',
     price: '₹61,999',
     color: 'Orange',
-    imageAlt: 'Nike Air Force 1 07 LV8',
+    imageAlt: 'Nike Air Force 1 07 LV8', 
     quantity: 1,
   },
 ];
-const user = JSON.parse(localStorage.getItem('users'));
 
 const UserDashboard = () => {
+  const user = JSON.parse(localStorage.getItem('users')); 
   return (
     <Layout>
       <div className="container mx-auto px-4 py-5 lg:py-8">
