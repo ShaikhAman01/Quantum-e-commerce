@@ -43,7 +43,6 @@ export default function HomePage() {
       <Banner data={BannerData1} />
       <HomePageProductCard />
       <Banner data={BannerData2} />
-      <Loader />
     </Layout>
   );
 }

@@ -6,6 +6,9 @@ import { useParams } from "react-router";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import Loader from "../../components/loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteFromCart } from "../../redux/cartSlice";
+import toast from "react-hot-toast";
 
 const ProductInfo = () => {
   const context = useContext(myContext);
@@ -27,6 +30,27 @@ const ProductInfo = () => {
           setLoading(false)
       }
   }
+
+  const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const addCart = (item) => {
+      // console.log(item)
+      dispatch(addToCart(item));
+      toast.success("Add to cart")
+  }
+
+  const deleteCart = (item) => {
+      dispatch(deleteFromCart(item));
+      toast.success("Delete cart")
+  }
+
+  // console.log(cartItems)
+
+  useEffect(() => {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems])
+
 
   useEffect(() => {
       getProductData()
@@ -68,8 +92,21 @@ const ProductInfo = () => {
                 <p className="text-4xl font-semibold text-gray-900 dark:text-gray-100">
                   ₹ {product?.price}
                 </p>
-                <Button text="Add to Cart" bgColor={"bg-primary"} textColor={"text-white"} className="py-3 px-6 rounded-full shadow-lg hover:bg-opacity-90 transition" />
-              </div>
+                {cartItems.some((p) => p.id === product.id) ? (
+  <button
+    onClick={() => deleteCart(product)}
+    className="bg-primary text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10"
+  >
+    Remove from Cart
+  </button>
+) : (
+  <button
+    onClick={() => addCart(product)}
+    className="bg-primary text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10"
+  >
+    Add to Cart
+  </button>
+)}              </div>
             </div>
           </>
         )}

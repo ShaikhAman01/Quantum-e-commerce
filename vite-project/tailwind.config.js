@@ -14,6 +14,12 @@ export default withMT({
 
     },
   },
-  variants: {},
+  variants: {
+    extend: {
+      borderColor: ['hover'],
+      textColor: ['hover'],
+      backgroundColor: ['hover'],
+    },
+  },
   plugins: [],
 });

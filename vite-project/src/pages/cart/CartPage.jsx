@@ -1,164 +1,273 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
 import Button from "../../components/Shared/Button";
 import Layout from "../../components/layout/Layout";
-import { Trash } from 'lucide-react'
-
-import boatHeadphones from "../../assets/homePage_headphone_1.png";
-import nothingPhone from "../../assets/homePage_nothingPhone.png";
-import appleWatch from "../../assets/homePage_watch_2.png";
-
-const initialProducts = [
-    {
-        id: 1,
-        name: 'boAt Rockerz 550 Bluetooth Wireless Over Ear Headphones',
-        href: '#',
-        price: 8549,
-        originalPrice: 8999,
-        discount: '5% Off',
-        color: 'white',
-        imageSrc: boatHeadphones,
-    },
-    {
-        id: 2,
-        name: 'Nothing Phone(2a)',
-        href: '#',
-        price: 21000,
-        originalPrice: 28000,
-        discount: '25% off',
-        color: 'black',
-        imageSrc: nothingPhone,
-    },
-    {
-        id: 3,
-        name: 'Apple Watch Series 9',
-        href: '#',
-        price: 38165,
-        originalPrice: 44900,
-        discount: '15% off',
-        color: 'Black',
-        imageSrc: appleWatch,
-    },
-];
+import { Trash } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrementQuantity,
+  deleteFromCart,
+  incrementQuantity,
+} from "../../redux/cartSlice";
+import BuyNowModal from "../../components/buyNowModal/BuyNowModal";
+import toast from "react-hot-toast";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfig";
+import { Navigate } from "react-router-dom";
 
 const CartPage = () => {
-    const [products, setProducts] = useState(initialProducts.map(product => ({ ...product, quantity: 1 })));
+  const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-    const handleQuantityChange = (id, amount) => {
-        setProducts(products.map(product =>
-            product.id === id ? { ...product, quantity: Math.max(1, product.quantity + amount) } : product
-        ));
+  // Generate random discounts between 5% to 30%
+  const applyRandomDiscounts = (price) => {
+    const discountPercentage = Math.floor(Math.random() * 26) + 5; // random discount between 5% and 30%
+    const discountedPrice = price - (price * discountPercentage) / 100;
+    return {
+      discountPercentage,
+      discountedPrice: Math.round(discountedPrice),
     };
+  };
 
-    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    const totalOriginalPrice = products.reduce((acc, product) => acc + product.originalPrice * product.quantity, 0);
-    const totalDiscount = totalOriginalPrice - totalPrice;
-    const finalAmount = totalPrice;
-
-    return (
-        <Layout>
-            <div className="container mx-auto max-w-7xl px-4 py-8">
-                <div className="mx-auto max-w-2xl lg:max-w-7xl">
-                    <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
-                        Shopping Cart
-                    </h1>
-                    <form className="lg:grid lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
-                        <section aria-labelledby="cart-heading" className="rounded-lg bg-white lg:col-span-8 p-4 shadow-sm">
-                            <ul role="list" className="divide-y divide-gray-300">
-                                {products.map((product) => (
-                                    <li key={product.id} className="flex py-6 sm:py-6">
-                                        <div className="flex-shrink-0">
-                                            <img
-                                                src={product.imageSrc}
-                                                alt={product.name}
-                                                className="h-24 w-24 sm:h-38 sm:w-38 rounded-md object-contain object-center"
-                                            />
-                                        </div>
-                                        <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
-                                            <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-                                                <div>
-                                                    <div className="flex justify-between">
-                                                        <h3 className="text-sm">
-                                                            <a href={product.href} className="font-semibold text-black">
-                                                                {product.name}
-                                                            </a>
-                                                        </h3>
-                                                    </div>
-                                                    <div className="mt-1 flex text-sm text-gray-500">
-                                                        <p>{product.color}</p>
-                                                    </div>
-                                                    <div className="mt-1 flex items-end">
-                                                        <p className="text-xs font-medium text-gray-500 line-through">
-                                                            ₹{product.originalPrice.toLocaleString()}
-                                                        </p>
-                                                        <p className="text-sm font-medium text-gray-900 ml-2">
-                                                            ₹{product.price.toLocaleString()}
-                                                        </p>
-                                                        <p className="text-sm font-medium text-green-500 ml-2">
-                                                            {product.discount}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-4 flex items-center">
-                                                <div className="flex items-center border border-gray-200 rounded-md">
-                                                    <button type="button" className="h-7 w-7 text-gray-700" onClick={() => handleQuantityChange(product.id, -1)}>-</button>
-                                                    <input
-                                                        type="text"
-                                                        className="mx-1 h-7 w-9 text-center border-0"
-                                                        value={product.quantity}
-                                                        readOnly
-                                                    />
-                                                    <button type="button" className="h-7 w-7 text-gray-700" onClick={() => handleQuantityChange(product.id, 1)}>+</button>
-                                                </div>
-                                                <button type="button" className="flex items-center ml-6 text-red-500" onClick={() => setProducts(products.filter(p => p.id !== product.id))}>
-                                                    <Trash size={16} />
-                                                    <span className="ml-1 text-xs font-medium">Remove</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </section>
-                        <section
-                            aria-labelledby="summary-heading"
-                            className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 p-4 shadow-sm"
-                        >
-                            <h2
-                                id="summary-heading"
-                                className="border-b border-gray-300 pb-3 text-lg font-medium text-gray-900"
-                            >
-                                Price Details
-                            </h2>
-                            <div className="py-4">
-                                <dl className="space-y-4">
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-sm text-gray-800">Price ({products.reduce((acc, product) => acc + product.quantity, 0)} item{products.length > 1 ? 's' : ''})</dt>
-                                        <dd className="text-sm font-medium text-gray-900">₹ {totalPrice.toLocaleString()}</dd>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-sm text-gray-800">Discount</dt>
-                                        <dd className="text-sm font-medium text-green-700">- ₹ {totalDiscount.toLocaleString()}</dd>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-sm text-gray-800">Delivery Charges</dt>
-                                        <dd className="text-sm font-medium text-green-700">Free</dd>
-                                    </div>
-                                    <div className="flex items-center justify-between border-t border-dashed pt-4">
-                                        <dt className="text-base font-medium text-gray-900">Total Amount</dt>
-                                        <dd className="text-base font-medium text-gray-900">₹ {finalAmount.toLocaleString()}</dd>
-                                    </div>
-                                </dl>
-                                <div className="mt-6">
-                                    <Button text="Checkout" bgColor={"bg-primary"} textColor={"text-white"} />
-                                </div>
-                            </div>
-                        </section>
-                    </form>
-                </div>
-            </div>
-        </Layout>
+  // Apply random discounts to all cart items
+  const cartItemsWithDiscounts = cartItems.map((item) => {
+    const { discountPercentage, discountedPrice } = applyRandomDiscounts(
+      item.price
     );
-}
+    return {
+      ...item,
+      discountPercentage,
+      discountedPrice,
+    };
+  });
+
+  const handleIncrement = (id) => {
+    dispatch(incrementQuantity(id));
+  };
+
+  const handleDecrement = (id) => {
+    dispatch(decrementQuantity(id));
+  };
+
+  const deleteCart = (item) => {
+    dispatch(deleteFromCart(item));
+    toast.success("Deleted item from cart");
+  };
+
+  const cartItemTotal = cartItemsWithDiscounts
+    .map((item) => item.quantity)
+    .reduce((prevValue, currValue) => prevValue + currValue, 0);
+
+  const cartTotal = cartItemsWithDiscounts
+    .map((item) => item.discountedPrice * item.quantity)
+    .reduce((prevValue, currValue) => prevValue + currValue, 0);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItemsWithDiscounts));
+  }, [cartItemsWithDiscounts]);
+
+  // ..buyNow fuction
+
+  const user = JSON.parse(localStorage.getItem("users"));
+
+  // addressInfo
+  const [addressInfo, setAddressInfo] = useState({
+    name: "",
+    address: "",
+    pincode: "",
+    mobileNumber: "",
+    time: Timestamp.now(),
+    date: new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }),
+  });
+
+  const buyNowFunction = () => {
+    // validation
+    if (
+      addressInfo.name === "" ||
+      addressInfo.address === "" ||
+      addressInfo.pincode === "" ||
+      addressInfo.mobileNumber === ""
+    ) {
+      return toast.error("All Fields are required");
+    }
+
+    // Order Info
+    const orderInfo = {
+      cartItems,
+      addressInfo,
+      email: user.email,
+      userid: user.uid,
+      status: "confirmed",
+      time: Timestamp.now(),
+      date: new Date().toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }),
+    };
+    try {
+      const orderRef = collection(fireDB, "order");
+      addDoc(orderRef, orderInfo);
+      setAddressInfo({
+        name: "",
+        address: "",
+        pincode: "",
+        mobileNumber: "",
+      });
+      toast.success("Order Placed Successfull");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <Layout>
+      <div className="container mx-auto max-w-7xl px-4 py-8">
+        <div className="mx-auto max-w-2xl lg:max-w-7xl">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
+            Shopping Cart
+          </h1>
+          <form className="lg:grid lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
+            <section
+              aria-labelledby="cart-heading"
+              className="rounded-lg bg-white lg:col-span-8 p-4 shadow-sm"
+            >
+              <ul role="list" className="divide-y divide-gray-300">
+                {cartItemsWithDiscounts.length > 0 ? (
+                  <>
+                    {cartItemsWithDiscounts.map((item, index) => (
+                      <li key={index} className="flex py-6 sm:py-6">
+                        <div className="flex-shrink-0">
+                          <img
+                            src={item.productImageUrl}
+                            alt={item.name}
+                            className="h-24 w-24 sm:h-38 sm:w-38 rounded-md object-contain object-center"
+                          />
+                        </div>
+                        <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+                          <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                            <div>
+                              <div className="flex justify-between">
+                                <h3 className="text-sm">{item.title}</h3>
+                              </div>
+                              <div className="mt-1 flex text-sm text-gray-500">
+                                <p>{item.category}</p>
+                              </div>
+                              <div className="mt-1 flex items-end">
+                                <p className="text-xs font-medium text-gray-500 line-through">
+                                  ₹{item.price.toLocaleString()}
+                                </p>
+                                <p className="ml-2 text-sm font-medium text-green-600">
+                                  {item.discountPercentage}% Off
+                                </p>
+                              </div>
+                              <p className="mt-1 text-lg font-semibold text-gray-900">
+                                ₹{item.discountedPrice.toLocaleString()}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="min-w-24 flex">
+                            <button
+                              onClick={() => handleDecrement(item.id)}
+                              type="button"
+                              className="h-7 w-7"
+                            >
+                              -
+                            </button>
+                            <input
+                              type="text"
+                              className="mx-1 h-7 w-9 rounded-md border text-center"
+                              value={item.quantity}
+                              readOnly
+                            />
+                            <button
+                              onClick={() => handleIncrement(item.id)}
+                              type="button"
+                              className="flex h-7 w-7 items-center justify-center"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <div className="ml-6 flex text-sm">
+                            <button
+                              onClick={() => deleteCart(item)}
+                              type="button"
+                              className="flex items-center space-x-1 px-2 py-1 pl-0"
+                            >
+                              <Trash size={12} className="text-red-500" />
+                              <span className="text-xs font-medium text-red-500">
+                                Remove
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </>
+                ) : (
+                  <h1>No Items added to cart</h1>
+                )}
+              </ul>
+            </section>
+            {/* Order summary */}
+            <section
+              aria-labelledby="summary-heading"
+              className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0"
+            >
+              <h2
+                id="summary-heading"
+                className=" border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4"
+              >
+                Order Summary
+              </h2>
+              <div>
+                <dl className=" space-y-1 px-2 py-4">
+                  <div className="flex items-center justify-between">
+                    <dt className="text-sm text-gray-800">
+                      Price ({cartItemTotal} item{cartItemTotal > 1 ? "s" : ""})
+                    </dt>
+                    <dd className="text-sm font-medium text-gray-900">
+                      ₹ {cartTotal.toLocaleString()}
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between py-4">
+                    <dt className="flex text-sm text-gray-800">
+                      <span>Delivery Charges</span>
+                    </dt>
+                    <dd className="text-sm font-medium text-green-700">Free</dd>
+                  </div>
+                  <div className="flex items-center justify-between border-y border-dashed py-4 ">
+                    <dt className="text-base font-medium text-gray-900">
+                      Total Amount
+                    </dt>
+                    <dd className="text-base font-medium text-gray-900">
+                      ₹ {cartTotal.toLocaleString()}
+                    </dd>
+                  </div>
+                </dl>
+                <div className="px-2 pb-4 font-medium text-green-700">
+                  <div className="flex gap-4 mb-6">
+                    {user ? (
+                      <BuyNowModal
+                        addressInfo={addressInfo}
+                        setAddressInfo={setAddressInfo}
+                        buyNowFunction={buyNowFunction}
+                      />
+                    ) : (
+                      <Navigate to={"/login"} />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </form>
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
 export default CartPage;

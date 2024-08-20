@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router";
 import Layout from "../../components/layout/Layout";
 import Button from "../../components/Shared/Button";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import myContext from "../../context/myContext";
 import Loader from "../../components/loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteFromCart } from "../../redux/cartSlice";
+import toast from "react-hot-toast";
 
 
 
@@ -12,6 +15,26 @@ const AllProduct = () => {
 
     const context = useContext(myContext);
     const {loading, getAllProduct} = context
+
+    const cartItems = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+  
+    const addCart = (item) => {
+      // console.log(item)
+      dispatch(addToCart(item));
+      toast.success("Add to cart");
+    };
+  
+    const deleteCart = (item) => {
+      dispatch(deleteFromCart(item));
+      toast.success("Delete cart");
+    };
+  
+    // console.log(cartItems)
+  
+    useEffect(() => {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }, [cartItems]);
 
 
     return (
@@ -45,8 +68,23 @@ const AllProduct = () => {
                     <p className="font-bold text-left">₹ {item.price}</p>
                   </div>
                   <div className="text-center mt-4">
-                    <Button text="Add to Cart" bgColor="bg-primary" textColor="text-white" />
-                  </div>
+                  <div className="flex justify-center ">
+                  {cartItems.some((p) => p.id === item.id) ? (
+  <button
+    onClick={() => deleteCart(item)}
+    className="bg-primary text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10"
+  >
+    Remove from Cart
+  </button>
+) : (
+  <button
+    onClick={() => addCart(item)}
+    className="bg-primary text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10"
+  >
+    Add to Cart
+  </button>
+)}
+                </div>                  </div>
                 </div>
               ))}
             </div>
