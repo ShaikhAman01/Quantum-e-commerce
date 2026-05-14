@@ -63,9 +63,9 @@ const categories = [
 const CategoryCard = ({ category, index, navigate }) => (
   <div
     onClick={() => navigate(`/category/${category.name.join('')}`)}
-    className={`py-10 pl-5 ${category.gradient} ${category.textColor} rounded-3xl relative h-[320px] flex items-end col-span-${index === 2 || index === 3 ? '2' : '1'}`}
+    className={`py-10 pl-5 ${category.gradient} ${category.textColor} rounded-3xl relative h-[320px] flex items-end overflow-hidden cursor-pointer col-span-${index === 2 || index === 3 ? '2' : '1'}`}
   >
-    <div>
+    <div className="relative z-10">
       <div className="mb-4">
         <p className={`mb-[2px] ${index === 0 ? "text-gray-400" : category.textColor}`}>{category.name[0]}</p>
         <p className="text-2xl font-semibold mb-[2px]">{category.name[1]}</p>
@@ -76,7 +76,11 @@ const CategoryCard = ({ category, index, navigate }) => (
     <img
       src={category.image}
       alt={`Category ${index + 1}`}
-      className={`w-[${index === 2 ? '250px' : '320px'}] absolute ${index === 2 ? 'top-1/2 -translate-y-1/2 -right-0' : '-right-4 lg:top-[40px]'}`}
+      className={`absolute object-contain pointer-events-none 
+        ${index === 2 
+          ? 'w-[250px] top-1/2 -translate-y-1/2 right-0' 
+          : 'w-[280px] lg:w-[320px] -right-4 bottom-0 lg:bottom-4'
+        }`}
     />
   </div>
 );
