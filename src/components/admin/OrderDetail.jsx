@@ -34,31 +34,70 @@ const OrderDetail = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {getAllOrder.map((order, orderIndex) => (
+                        {getAllOrder.map((order) => (
                             order.cartItems.map((item, index) => {
-                                const { id, productImageUrl, title, category, price, quantity } = item;
+                                const { productImageUrl, title, category, price, quantity } = item;
                                 return (
-                                    <tr key={index} className="border-t last:border-b hover:bg-gray-50 transition-colors">
+                                    <tr key={`${order.id}-${index}`} className="border-t last:border-b hover:bg-gray-50 transition-colors">
+                                        {/* S.No. */}
                                         <td className="h-12 px-6 text-sm text-gray-800">{index + 1}.</td>
+                                        
+                                        {/* Order Id */}
                                         <td className="h-12 px-6 text-sm text-gray-800">{order.id}</td>
+                                        
+                                        {/* Image */}
                                         <td className="h-12 px-6 text-sm">
                                             <div className="flex justify-center">
-                                                <img className="w-16 h-16 object-cover rounded-lg" src={productImageUrl} alt={title} />
+                                                <img 
+                                                    className="w-16 h-16 object-contain rounded-lg" 
+                                                    src={productImageUrl} 
+                                                    alt={title} 
+                                                    onError={(e) => { e.target.src = "https://placehold.co/200x200?text=Product"; }}
+                                                />
                                             </div>
                                         </td>
+                                        
+                                        {/* Title */}
                                         <td className="h-12 px-6 text-sm text-gray-800 capitalize">{title}</td>
+                                        
+                                        {/* Category */}
                                         <td className="h-12 px-6 text-sm text-gray-800 capitalize">{category}</td>
-                                        <td className="h-12 px-6 text-sm text-gray-800">₹{price}</td>
+                                        
+                                        {/* Price */}
+                                        <td className="h-12 px-6 text-sm text-gray-800">₹{Number(price).toLocaleString()}</td>
+                                        
+                                        {/* Quantity */}
                                         <td className="h-12 px-6 text-sm text-gray-800">{quantity}</td>
-                                        <td className="h-12 px-6 text-sm text-gray-800">₹{price * quantity}</td>
-                                        <td className={`h-12 px-6 text-sm capitalize text-green-600 `}>{order.status}</td>
+                                        
+                                        {/* Total Price */}
+                                        <td className="h-12 px-6 text-sm text-gray-800">₹{(Number(price) * Number(quantity)).toLocaleString()}</td>
+                                        
+                                        {/* Status */}
+                                        <td className="h-12 px-6 text-sm capitalize text-green-600 font-medium">{order.status}</td>
+                                        
+                                        {/* Name */}
                                         <td className="h-12 px-6 text-sm text-gray-800 capitalize">{order.addressInfo.name}</td>
+                                        
+                                        {/* Address */}
                                         <td className="h-12 px-6 text-sm text-gray-800 capitalize">{order.addressInfo.address}</td>
+                                        
+                                        {/* Pincode */}
                                         <td className="h-12 px-6 text-sm text-gray-800">{order.addressInfo.pincode}</td>
+                                        
+                                        {/* Phone Number */}
                                         <td className="h-12 px-6 text-sm text-gray-800">{order.addressInfo.mobileNumber}</td>
+                                        
+                                        {/* Email */}
                                         <td className="h-12 px-6 text-sm text-gray-800">{order.email}</td>
-                                        <td className="h-12 px-6 text-sm text-gray-800">{order.date}</td>
-                                        <td onClick={() => deleteProduct(order.id)} className="h-12 px-6 text-sm text-red-500 hover:text-red-700 cursor-pointer">
+                                        
+                                        {/* Date */}
+                                        <td className="h-12 px-6 text-sm text-gray-800 whitespace-nowrap">{order.date}</td>
+                                        
+                                        {/* Action */}
+                                        <td 
+                                            onClick={() => deleteProduct(order.id)} 
+                                            className="h-12 px-6 text-sm text-red-500 hover:text-red-700 cursor-pointer font-bold"
+                                        >
                                             Delete
                                         </td>
                                     </tr>

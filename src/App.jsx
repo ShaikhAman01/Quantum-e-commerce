@@ -22,7 +22,6 @@ import CategoryPage from "./pages/category/CategoryPage";
 function App() {
   return (
     <MyState>
-      <Router>
         <ScrollTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -72,7 +71,6 @@ function App() {
           />
         </Routes>
         <Toaster />
-      </Router>
     </MyState>
   );
 }
