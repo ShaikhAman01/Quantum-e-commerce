@@ -1,54 +1,53 @@
 # Quantum E-Commerce
 
-## Description:
-A fully functional e-commerce platform built with React, Firebase, and Tailwind CSS. The platform includes an admin panel for managing product CRUD operations and a customer-side interface for browsing products, adding items to the cart, and making purchases. Authentication is integrated to ensure a secure experience, with real-time updates powered by Firebase Firestore.
+A single-page e-commerce platform for electronics, built with React, Firebase, and Tailwind CSS. It includes an admin panel for managing products and orders, and a customer side for browsing products, managing a cart, and placing orders — with real-time updates powered by Firebase Firestore.
 
-## Features:
-- Admin panel for creating, reading, updating, and deleting (CRUD) products
-- Customer-side cart management
-- User authentication
-- Real-time data management using Firebase
+## Features
 
-## Technologies Used:
-- React.js (Frontend)
-- Firebase (Firestore for real-time database)
-- Tailwind CSS (Styling)
+- Admin dashboard for product CRUD and viewing orders/users
+- Customer cart with quantity management (persisted in localStorage)
+- User authentication (email/password + Google sign-in) with role-based routing
+- Real-time data via Firebase Firestore
 
-## How to Run:
+## Tech Stack
+
+- React 18 + Vite
+- Firebase (Auth + Firestore)
+- Redux Toolkit (cart) + React Context (data)
+- Tailwind CSS
+
+## How to Run
 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/ShaikhAman01/Quantum-e-commerce
-   ```
-
-2. **Navigate into the project directory**:
-   ```bash
    cd Quantum-e-commerce
    ```
 
-3. **Set up Firebase environment variables**:
-   - Create a `.env` file in the root of the project and add your Firebase configuration:
-
-     ```bash
-     REACT_APP_FIREBASE_API_KEY=your-api-key
-     REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-     REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-     REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-     REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-     REACT_APP_FIREBASE_APP_ID=your-app-id
-     REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
-     ```
-
-   - Replace the placeholder values (`your-api-key`, etc.) with the actual Firebase project configuration from your [Firebase Console](https://console.firebase.google.com/).
-
-4. **Install dependencies**:
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-5. **Run the application**:
+3. **Set up Firebase environment variables** — create a `.env` file in the project root:
+
    ```bash
-   npm start
+   VITE_FIREBASE_API_KEY=your-api-key
+   VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
+   VITE_FIREBASE_PROJECT_ID=your-project-id
+   VITE_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+   VITE_FIREBASE_APP_ID=your-app-id
+   VITE_FIREBASE_MEASUREMENT_ID=your-measurement-id
    ```
 
-6. Open `http://localhost:3000` in your browser to view the app.
+   Replace the placeholder values with your Firebase project configuration from the [Firebase Console](https://console.firebase.google.com/).
+
+4. **Run the dev server**:
+   ```bash
+   npm run dev
+   ```
+
+5. Open `http://localhost:5173` in your browser.
+
+Other scripts: `npm run build` (production build), `npm run preview` (serve the build locally), `npm run lint`.
