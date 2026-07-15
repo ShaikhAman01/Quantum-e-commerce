@@ -5,12 +5,14 @@ import { FiShoppingBag, FiUser, FiLogIn, FiLogOut } from "react-icons/fi"; // Im
 import { auth } from "../../firebase/FirebaseConfig";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../../redux/cartSlice";
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("users"));
 
@@ -31,6 +33,10 @@ const Navbar = () => {
     try {
       await signOut(auth);
       localStorage.removeItem("users");
+      // Clear the cart so it never carries over into the next account
+      // signed in on this browser.
+      dispatch(clearCart());
+      localStorage.removeItem("cart");
       toast.success("Logged out successfully");
       navigate("/login");
     } catch (error) {

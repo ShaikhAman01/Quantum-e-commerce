@@ -60,7 +60,7 @@ const Login = () => {
                 toast.success("Login Successful");
                 setLoading(false);
                 if (user.role === "user") {
-                    navigate('/user-dashboard');
+                    navigate('/');
                 } else {
                     navigate('/admin-dashboard');
                 }

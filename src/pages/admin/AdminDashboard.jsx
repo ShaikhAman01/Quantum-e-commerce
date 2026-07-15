@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ProductDetail from '../../components/admin/ProductDetail';
 import OrderDetail from '../../components/admin/OrderDetail';
 import UserDetail from '../../components/admin/UserDetail';
@@ -32,7 +33,13 @@ const AdminDashboard = () => {
     return (
         <div className="bg-gray-100 min-h-screen">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#F42C37] to-[#F45D37] p-8 shadow-md">
+            <div className="bg-gradient-to-r from-[#F42C37] to-[#F45D37] p-8 shadow-md relative">
+                <Link
+                    to="/"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 inline-flex items-center gap-1 rounded-md bg-white/20 px-3 py-2 text-sm font-medium text-white hover:bg-white/30 transition-colors"
+                >
+                    &larr; Back to store
+                </Link>
                 <h1 className="text-center text-3xl font-bold text-white">Admin Dashboard</h1>
             </div>
 
