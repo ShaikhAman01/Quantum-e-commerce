@@ -73,5 +73,8 @@ public
 *.swo
 *~
 
+# Firebase deploy cache
+.firebase/
+
 # Custom ignore patterns
 # Add any other files or directories you want to ignore

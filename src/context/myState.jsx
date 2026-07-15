@@ -93,7 +93,22 @@ const getAllUserFunction = async () => {
 }
 
   useEffect(() => {
-    getAllProductFunction(), getAllOrderFunction(), getAllUserFunction();
+    // Products are public. Orders and users are admin-only under the Firestore
+    // security rules, so only fetch them when the current user is an admin —
+    // otherwise every visitor would trigger permission-denied errors.
+    getAllProductFunction();
+
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem("users"));
+    } catch {
+      currentUser = null;
+    }
+
+    if (currentUser?.role === "admin") {
+      getAllOrderFunction();
+      getAllUserFunction();
+    }
   }, []);
   return (
     <MyContext.Provider

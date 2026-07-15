@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import Loader from "../../components/loader/Loader";
-import { collection, onSnapshot, query, where, addDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
@@ -50,28 +50,24 @@ const Login = () => {
 
     const getUserData = async (uid) => {
         try {
-            const q = query(
-                collection(fireDB, "user"),
-                where('uid', '==', uid)
-            );
-            const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-                let user;
-                QuerySnapshot.forEach((doc) => user = doc.data());
-                if (user) {
-                    localStorage.setItem("users", JSON.stringify(user));
-                    toast.success("Login Successful");
-                    setLoading(false);
-                    if (user.role === "user") {
-                        navigate('/user-dashboard');
-                    } else {
-                        navigate('/admin-dashboard');
-                    }
+            // Read the profile directly by uid. Security rules only allow a user
+            // to read their own /user/{uid} document, so this must be a get, not
+            // a collection query.
+            const userSnap = await getDoc(doc(fireDB, "user", uid));
+            if (userSnap.exists()) {
+                const user = userSnap.data();
+                localStorage.setItem("users", JSON.stringify(user));
+                toast.success("Login Successful");
+                setLoading(false);
+                if (user.role === "user") {
+                    navigate('/user-dashboard');
                 } else {
-                    // If user doesn't exist in Firestore, create a new user document
-                    createNewUser(uid);
+                    navigate('/admin-dashboard');
                 }
-            });
-            return () => unsubscribe();
+            } else {
+                // First-time login (e.g. Google sign-in): create the profile.
+                await createNewUser(uid);
+            }
         } catch (error) {
             console.error(error);
             setLoading(false);
@@ -96,7 +92,7 @@ const Login = () => {
                     }
                 ),
             };
-            await addDoc(collection(fireDB, "user"), userObject);
+            await setDoc(doc(fireDB, "user", uid), userObject);
             localStorage.setItem("users", JSON.stringify(userObject));
             toast.success("New user created and logged in successfully");
             setLoading(false);

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import myContext from "../../context/myContext";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { Timestamp, doc, setDoc } from "firebase/firestore";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import toast from "react-hot-toast";
@@ -73,8 +73,9 @@ const Signup = () => {
       }),
     };
 
-    const userReference = collection(fireDB, "user");
-    await addDoc(userReference, userObject);
+    // Key the profile document by the Firebase Auth uid so security rules can
+    // look up the user's role directly (rules cannot run queries).
+    await setDoc(doc(fireDB, "user", user.uid), userObject);
   };
 
   return (
