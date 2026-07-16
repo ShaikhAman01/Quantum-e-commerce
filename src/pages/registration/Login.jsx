@@ -96,7 +96,7 @@ const Login = () => {
             localStorage.setItem("users", JSON.stringify(userObject));
             toast.success("New user created and logged in successfully");
             setLoading(false);
-            navigate('/user-dashboard');
+            navigate('/');
         } catch (error) {
             console.error(error);
             setLoading(false);
