@@ -24,6 +24,7 @@ const ProductDetail = () => {
             setLoading(false)
         } catch (error) {
             console.log(error)
+            toast.error("Failed to delete product")
             setLoading(false)
         }
     }

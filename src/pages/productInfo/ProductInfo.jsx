@@ -27,6 +27,7 @@ const ProductInfo = () => {
           setLoading(false)
       } catch (error) {
           console.log(error)
+          toast.error("Failed to load product")
           setLoading(false)
       }
   }
